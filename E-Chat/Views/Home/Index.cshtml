@@ -1,0 +1,424 @@
+﻿@using Application.Services.Interfaces.IUserServices
+@using Application.Utilities
+@inject IUserGroupService UserGroupService
+@{
+    ViewData["Title"] = "Home Page";
+    var chats = UserGroupService.GetAllByUserId(User.GetUserId());
+}
+
+<div class="row">
+<div class="col-12">
+<div class="chat-box-left" style="max-height: 89vh">
+    <ul class="nav nav-pills mb-3 nav-justified" id="pills-tab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="general_chat_tab" data-toggle="pill" href="#general_chat">عمومی</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="group_chat_tab" data-toggle="pill" href="#group_chat">گروه</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="personal_chat_tab" data-toggle="pill" href="#personal_chat">شخصی</a>
+        </li>
+    </ul>
+
+    <button class="btn btn-success rounded-pill w-100 mb-3" data-toggle="modal" data-target="#createGroupModal">
+        <i class="fa fa-plus"></i>
+    </button>
+
+    <div class="tab-content chat-list slimscroll" id="pills-tabContent" style="max-height: 70vh">
+        <div class="tab-pane fade show active" id="general_chat">
+            @foreach (var chat in chats)
+            {
+                <a href="" class="media new-message">
+                    <div class="media-left">
+                        <img src="/Images/UserAvatar/Default.jpg" alt="user" class="rounded-circle thumb-md">
+                        <span class="round-10 bg-success"></span>
+                    </div><!-- media-left -->
+                    <div class="media-body">
+                        <div class="d-inline-block">
+                            <h6>@chat.GroupTitle</h6>
+                            <p>Last Message</p>
+                        </div>
+                        <div>
+                            <span>20 Feb</span>
+                            <span>3</span>
+                        </div>
+                    </div><!-- end media-body -->
+                </a>
+            }
+        </div>
+
+        <div class="tab-pane fade" id="group_chat">
+            <a href="" class="media new-message">
+                <div class="media-left">
+                    <div class="avatar-box thumb-md align-self-center mr-2">
+                        <span class="avatar-title bg-primary rounded-circle">
+                            <i class="fab fa-quinscape"></i>
+                        </span>
+                    </div>
+                </div><!-- media-left -->
+                <div class="media-body">
+                    <div>
+                        <h6>Design Group</h6>
+                        <p>Good morning! How are you?</p>
+                    </div>
+                    <div>
+                        <span>20 Feb</span>
+                        <span>1</span>
+                    </div>
+                </div><!-- end media-body -->
+            </a>
+            <a href="" class="media">
+                <div class="media-left">
+                    <div class="avatar-box thumb-md align-self-center mr-2">
+                        <span class="avatar-title bg-success rounded-circle">
+                            <i class="fab fa-connectdevelop"></i>
+                        </span>
+                    </div>
+                </div><!-- media-left -->
+                <div class="media-body">
+                    <div>
+                        <h6>Front end Developers</h6>
+                        <p>Have A Nice day...</p>
+                    </div>
+                    <div>
+                        <span>15 Feb</span>
+                    </div>
+                </div><!-- end media-body -->
+            </a>
+        </div>
+
+        <div class="tab-pane fade" id="personal_chat">
+            <a href="" class="media new-message">
+                <div class="media-left">
+                    <img src="./assets/images/users/user-1.jpg" alt="user" class="rounded-circle thumb-md">
+                    <span class="round-10 bg-success"></span>
+                </div><!-- media-left -->
+                <div class="media-body">
+                    <div class="d-inline-block">
+                        <h6>Daniel Madsen</h6>
+                        <p>Good morning! Congratulations Friend...</p>
+                    </div>
+                    <div>
+                        <span>20 Feb</span>
+                        <span>3</span>
+                    </div>
+                </div><!-- end media-body -->
+            </a>
+            <a href="" class="media">
+                <div class="media-left">
+                    <img src="./assets/images/users/user-3.jpg" alt="user" class="rounded-circle thumb-md">
+                    <span class="round-10 bg-danger"></span>
+                </div><!-- media-left -->
+                <div class="media-body">
+                    <div>
+                        <h6>Jesse Ross</h6>
+                        <p>How are you Friend...</p>
+                    </div>
+                    <div>
+                        <span>15 Feb</span>
+                    </div>
+                </div><!-- end media-body -->
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="chat-box-right" style="max-height: 89vh">
+<div class="chat-header">
+    <a href="" class="media">
+        <div class="media-left">
+            <img src="./assets/images/users/user-4.jpg" alt="user" class="rounded-circle thumb-md">
+        </div><!-- media-left -->
+        <div class="media-body">
+            <div>
+                <h6 class="mb-1 mt-0">Mary Schneider</h6>
+                <p class="mb-0">Last seen: 2 hours ago</p>
+            </div>
+        </div><!-- end media-body -->
+    </a><!--end media-->
+    <div class="chat-features">
+        <div class="d-none d-sm-inline-block">
+            <a href="">
+                <i class="fas fa-phone"></i>
+            </a>
+            <a href="">
+                <i class="fas fa-video"></i>
+            </a>
+            <a href="">
+                <i class="fas fa-trash-alt"></i>
+            </a>
+            <a href="">
+                <i class="fas fa-ellipsis-v"></i>
+            </a>
+        </div>
+    </div><!-- end chat-features -->
+</div><!-- end chat-header -->
+<div class="chat-body" style="max-height: 68vh">
+    <div class="chat-detail slimscroll" style="max-height: 65vh; padding-bottom: 85px">
+        <div class="media">
+            <div class="media-img">
+                <img src="./assets/images/users/user-4.jpg" alt="user" class="rounded-circle thumb-md">
+            </div>
+            <div class="media-body">
+                <div class="chat-msg">
+                    <p>Good Morning !</p>
+                </div>
+                <div class="chat-msg">
+                    <p>There are many variations of passages of Lorem Ipsum available.</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="media">
+            <div class="media-img">
+                <img src="./assets/images/users/user-4.jpg" alt="user" class="rounded-circle thumb-md">
+            </div>
+            <div class="media-body">
+                <div class="chat-msg">
+                    <p>Good Morning !</p>
+                </div>
+                <div class="chat-msg">
+                    <p>There are many variations of passages of Lorem Ipsum available.</p>
+                </div>
+            </div>
+        </div>
+        <div class="media">
+            <div class="media-img">
+                <img src="./assets/images/users/user-4.jpg" alt="user" class="rounded-circle thumb-md">
+            </div>
+            <div class="media-body">
+                <div class="chat-msg">
+                    <p>Good Morning !</p>
+                </div>
+                <div class="chat-msg">
+                    <p>There are many variations of passages of Lorem Ipsum available.</p>
+                </div>
+            </div>
+        </div>
+        <div class="media">
+            <div class="media-img">
+                <img src="./assets/images/users/user-4.jpg" alt="user" class="rounded-circle thumb-md">
+            </div>
+            <div class="media-body">
+                <div class="chat-msg">
+                    <p>Good Morning !</p>
+                </div>
+                <div class="chat-msg">
+                    <p>There are many variations of passages of Lorem Ipsum available.</p>
+                </div>
+            </div>
+        </div>
+        <div class="media">
+            <div class="media-img">
+                <img src="./assets/images/users/user-4.jpg" alt="user" class="rounded-circle thumb-md">
+            </div>
+            <div class="media-body">
+                <div class="chat-msg">
+                    <p>Good Morning !</p>
+                </div>
+                <div class="chat-msg">
+                    <p>There are many variations of passages of Lorem Ipsum available.</p>
+                </div>
+            </div>
+        </div>
+        <div class="media">
+            <div class="media-img">
+                <img src="./assets/images/users/user-4.jpg" alt="user" class="rounded-circle thumb-md">
+            </div>
+            <div class="media-body">
+                <div class="chat-msg">
+                    <p>Good Morning !</p>
+                </div>
+                <div class="chat-msg">
+                    <p>There are many variations of passages of Lorem Ipsum available.</p>
+                </div>
+            </div>
+        </div>
+        <div class="media">
+            <div class="media-img">
+                <img src="./assets/images/users/user-4.jpg" alt="user" class="rounded-circle thumb-md">
+            </div>
+            <div class="media-body">
+                <div class="chat-msg">
+                    <p>Good Morning !</p>
+                </div>
+                <div class="chat-msg">
+                    <p>There are many variations of passages of Lorem Ipsum available.</p>
+                </div>
+            </div>
+        </div>
+        <div class="media">
+            <div class="media-img">
+                <img src="./assets/images/users/user-4.jpg" alt="user" class="rounded-circle thumb-md">
+            </div>
+            <div class="media-body">
+                <div class="chat-msg">
+                    <p>Good Morning !</p>
+                </div>
+                <div class="chat-msg">
+                    <p>There are many variations of passages of Lorem Ipsum available.</p>
+                </div>
+            </div>
+        </div>
+        <div class="media">
+            <div class="media-img">
+                <img src="./assets/images/users/user-4.jpg" alt="user" class="rounded-circle thumb-md">
+            </div>
+            <div class="media-body">
+                <div class="chat-msg">
+                    <p>Good Morning !</p>
+                </div>
+                <div class="chat-msg">
+                    <p>There are many variations of passages of Lorem Ipsum available.</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="media">
+            <div class="media-body reverse">
+                <div class="chat-msg">
+                    <p>Good Morning !</p>
+                </div>
+                <div class="chat-msg">
+                    <p>There are many variations of passages of Lorem Ipsum available.</p>
+                </div>
+            </div><!--end media-body-->
+            <div class="media-img">
+                <img src="./assets/images/users/user-3.jpg" alt="user" class="rounded-circle thumb-md">
+            </div>
+        </div>
+
+        <div class="media">
+            <div class="media-body reverse">
+                <div class="chat-msg">
+                    <p>Good Morning !</p>
+                </div>
+                <div class="chat-msg">
+                    <p>There are many variations of passages of Lorem Ipsum available.</p>
+                </div>
+            </div><!--end media-body-->
+            <div class="media-img">
+                <img src="./assets/images/users/user-3.jpg" alt="user" class="rounded-circle thumb-md">
+            </div>
+        </div>
+        <div class="media">
+            <div class="media-img">
+                <img src="./assets/images/users/user-4.jpg" alt="user" class="rounded-circle thumb-md">
+            </div>
+            <div class="media-body">
+                <div class="chat-msg">
+                    <p>There are many variations of passages of Lorem Ipsum available.</p>
+                </div>
+            </div><!--end media-body-->
+        </div>
+    </div>
+</div>
+<div class="chat-footer bg-white" style="z-index: 10">
+    <div class="row">
+        <div class="col-12 col-md-9">
+            <input type="text" class="form-control" id="messageBox" placeholder="نوشتن پیام...">
+        </div><!-- col-8 -->
+        <div class="col-3 text-right">
+            <div class="d-none d-sm-inline-block chat-features">
+                <button class="btn btn-link">
+                    <i class="fa fa-telegram"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+
+@section OutOfBody
+{
+    <!-- Modal -->
+    <div class="modal fade" id="createGroupModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">ایجاد گروه جدید</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="groupName">نام گروه</label>
+                        <input type="text" class="form-control" id="groupName" placeholder="نام گروه را وارد کنید"/>
+                        <span class="text-danger d-none" id="groupNameDanger">لطفا نام گروه را وارد کنید</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                    <button type="button" class="btn btn-primary" id="createGroupBtn">ایجاد</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section MyStyle
+{
+    <link href="/assets/plugins/sweet-alert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
+    <link href="/assets/plugins/animate/animate.css" rel="stylesheet" type="text/css">
+}
+
+@section MyScript
+{
+    <script src="/lib/microsoft/signalr/signalr.js"></script>
+    <script src="/assets/plugins/sweet-alert2/sweetalert2.min.js"></script>
+
+    <script>
+        const connection = new signalR.HubConnectionBuilder().withUrl("/chat").build();
+        connection.on("Welcome", function (text){
+            console.log("Test Text => ", text)
+        })
+        
+        connection.on("ReceiveMessage", function (message){
+            console.log(message)
+        })
+        
+        connection.start()
+        
+        $("#messageBox").on("keydown", function (e){
+            if (e.which === 13){
+                connection.invoke("SendMessage", e.target.value)
+            }
+        })
+        
+        $(document).on("click", "#createGroupBtn", function (){
+            $.ajax({
+                url: "/Home/CreateGroup/",
+                type: "POST",
+                data: {
+                    groupName: $("#groupName").val()
+                },
+                success: function (response){
+                    if (response.isSuccess){
+                        Swal.fire(
+                            'موفق',
+                            'گروه با موفقیت ایجاد شد',
+                            'success'
+                        ).then(function (result){
+                            if (result.value){
+                                window.location.reload()
+                            }
+                        })
+                    }else{
+                        Swal.fire(
+                            'خطا',
+                            response.message,
+                            'error'
+                        )
+                    }
+                }
+            })
+        })
+        
+    </script>
+}

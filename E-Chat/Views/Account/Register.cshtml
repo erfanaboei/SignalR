@@ -1,0 +1,89 @@
+﻿@model Domain.DTOs.AccountDTOs.RegisterDto
+@{
+    ViewBag.Title = "ثبت نام";
+    Layout = "_AccountLayout";
+}
+
+<div class="card auth-card shadow-lg">
+    <div class="card-body">
+        <div class="px-3">
+            <div class="auth-logo-box">
+                <img src="/assets/images/logo-sm.png" height="55" alt="logo" class="auth-logo">
+            </div><!--end auth-logo-box-->
+
+            <div class="text-center auth-logo-text">
+                <h4 class="mt-0 mb-3 mt-5">ثبت نام</h4>
+                <p class="text-muted mb-0">حساب کاربری خود را ایجاد کنید</p>
+            </div> <!--end auth-logo-text-->
+
+
+            <form class="form-horizontal auth-form my-4" asp-action="Register" method="post">
+
+                <div class="form-group">
+                    <label asp-for="Username"></label>
+                    <div class="d-flex flex-column">
+                        <div class="input-group">
+                            <span class="auth-form-icon">
+                                <i class="dripicons-user"></i>
+                            </span>
+                            <input type="text" class="form-control" asp-for="Username" placeholder="نام کاربری را وارد کنید"/>
+                        </div>
+                        <span class="text-danger d-block mx-2" asp-validation-for="Username"></span>
+                    </div>
+                </div><!--end form-group-->
+
+                <div class="form-group">
+                    <label asp-for="Phone"></label>
+                    <div class="d-flex flex-column">
+                        <div class="input-group">
+                            <span class="auth-form-icon">
+                                <i class="dripicons-lock"></i>
+                            </span>
+                            <input type="text" class="form-control" asp-for="Phone" placeholder="شماره موبایل خود را وارد کنید">
+                        </div>
+                        <span class="text-danger mx-3" asp-validation-for="Phone"></span>
+                    </div>
+                </div><!--end form-group-->
+
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <div class="d-flex flex-column">
+                        <div class="input-group">
+                            <span class="auth-form-icon">
+                                <i class="dripicons-lock"></i>
+                            </span>
+                            <input type="password" class="form-control" asp-for="Password" placeholder="رمز عبور خود را وارد کنید">
+                        </div>
+                        <span class="text-danger mx-3" asp-validation-for="Password"></span>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="RePassword"></label>
+
+                    <div class="d-flex flex-column">
+                        <div class="input-group">
+                            <span class="auth-form-icon">
+                                <i class="dripicons-lock"></i>
+                            </span>
+                            <input type="password" class="form-control" asp-for="RePassword" placeholder="تکرار رمز عبور خود را وارد کنید">
+                        </div>
+                        <span class="text-danger mx-3" asp-validation-for="RePassword"></span>
+                    </div>
+
+                </div><!--end form-group-->
+
+                <div class="form-group mb-0 row">
+                    <div class="col-12 mt-2">
+                        <button class="btn btn-primary btn-round btn-block waves-effect waves-light" type="submit">ثبت نام<i class="fas fa-sign-in-alt ml-1"></i></button>
+                    </div><!--end col-->
+                </div> <!--end form-group-->
+            </form><!--end form-->
+        </div><!--end /div-->
+
+        <div class="m-3 text-center text-muted">
+            <p class="">از قبل ثبت نام کرده اید؟ <a asp-controller="Account" asp-action="Login" class="text-primary ml-2">ورود</a></p>
+        </div>
+    </div><!--end card-body-->
+</div><!--end card-->

@@ -1,0 +1,12 @@
+E:\UNI\Project Karshenasi\E-Chat\Domain\bin\Debug\net5.0\Domain.deps.json
+E:\UNI\Project Karshenasi\E-Chat\Domain\bin\Debug\net5.0\Domain.dll
+E:\UNI\Project Karshenasi\E-Chat\Domain\bin\Debug\net5.0\ref\Domain.dll
+E:\UNI\Project Karshenasi\E-Chat\Domain\bin\Debug\net5.0\Domain.pdb
+E:\UNI\Project Karshenasi\E-Chat\Domain\obj\Debug\net5.0\Domain.csproj.AssemblyReference.cache
+E:\UNI\Project Karshenasi\E-Chat\Domain\obj\Debug\net5.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+E:\UNI\Project Karshenasi\E-Chat\Domain\obj\Debug\net5.0\Domain.AssemblyInfoInputs.cache
+E:\UNI\Project Karshenasi\E-Chat\Domain\obj\Debug\net5.0\Domain.AssemblyInfo.cs
+E:\UNI\Project Karshenasi\E-Chat\Domain\obj\Debug\net5.0\Domain.csproj.CoreCompileInputs.cache
+E:\UNI\Project Karshenasi\E-Chat\Domain\obj\Debug\net5.0\Domain.dll
+E:\UNI\Project Karshenasi\E-Chat\Domain\obj\Debug\net5.0\ref\Domain.dll
+E:\UNI\Project Karshenasi\E-Chat\Domain\obj\Debug\net5.0\Domain.pdb
