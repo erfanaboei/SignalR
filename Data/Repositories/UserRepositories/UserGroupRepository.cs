@@ -18,7 +18,9 @@ namespace Data.Repositories.UserRepositories
         {
             return Table
                 .Include(r=> r.ChatGroup.Chats)
-                .Where(r => r.UserId == userId).ToList();
+                .OrderByDescending(r=> r.CreateDate)
+                .Where(r => r.UserId == userId)
+                .ToList();
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using Application.Services.Interfaces.IChatServices;
 using Application.Services.Interfaces.IUserServices;
 using Application.Utilities;
+using Domain.DTOs.ChatDTOs;
 using Domain.DTOs.ChatDTOs.ChatGroupDTOs;
 using Domain.DTOs.UserDTOs;
 using Domain.Interfaces.IChatRepositories;
@@ -31,6 +32,37 @@ namespace Application.Services.Implements.ChatServices
             {
                 GroupTitle = r.GroupTitle
             }).ToList();
+        }
+
+        public List<ChatGroupListDto> GetAllGroupsWhichUserNotMember(int userId)
+        {
+            var groups = _chatGroupRepository.GetAllGroupsWhichUserNotMember(userId);
+            return groups.Select(r => new ChatGroupListDto()
+            {
+                GroupTitle = r.GroupTitle,
+                GroupId = r.Id,
+            }).ToList();
+        }
+
+        public ChatGroup GetById(int id)
+        {
+            return _chatGroupRepository.GetById(id);
+        }
+
+        public ChatGroupDto GetDtoById(int id)
+        {
+            var chatGroup = GetById(id);
+            return new ChatGroupDto()
+            {
+                ChatGroupId = chatGroup.Id,
+                ChatGroupTitle = chatGroup.GroupTitle,
+                Chats = chatGroup.Chats.Select(r=> new ChatDto()
+                {
+                    UserId = r.UserId,
+                    CreateDate = r.CreateDate.ToString(),
+                    Text = r.ChatBody
+                }).ToList()
+            };  
         }
 
         public RequestResult Add(string groupName, int userId)

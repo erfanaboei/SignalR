@@ -26,6 +26,7 @@ namespace Application.Services.Implements.UserServices
             return groups.Select(r => new ChatGroupListDto()
             {
                 GroupTitle = r.ChatGroup.GroupTitle,
+                GroupId = r.ChatGroupId,
                 LatChat = r.ChatGroup.Chats.OrderByDescending(c=> c.CreateDate).FirstOrDefault()
             }).ToList();
         }

@@ -1,9 +1,12 @@
-﻿@using Application.Services.Interfaces.IUserServices
+﻿@using Application.Services.Interfaces.IChatServices
+@using Application.Services.Interfaces.IUserServices
 @using Application.Utilities
 @inject IUserGroupService UserGroupService
+@inject IChatGroupService ChatGroupService
 @{
     ViewData["Title"] = "Home Page";
     var chats = UserGroupService.GetAllByUserId(User.GetUserId());
+    var userNotJoinChats = ChatGroupService.GetAllGroupsWhichUserNotMember(User.GetUserId());
 }
 
 <div class="row">
@@ -21,7 +24,7 @@
         </li>
     </ul>
 
-    <button class="btn btn-success rounded-pill w-100 mb-3" data-toggle="modal" data-target="#createGroupModal">
+    <button class="btn btn-success rounded-pill w-100 mb-3" data-toggle="modal" data-target="#newChatModal">
         <i class="fa fa-plus"></i>
     </button>
 
@@ -29,7 +32,7 @@
         <div class="tab-pane fade show active" id="general_chat">
             @foreach (var chat in chats)
             {
-                <a href="" class="media new-message">
+                <a class="media new-message group" data-group-id="@chat.GroupId" style="cursor: pointer">
                     <div class="media-left">
                         <img src="/Images/UserAvatar/Default.jpg" alt="user" class="rounded-circle thumb-md">
                         <span class="round-10 bg-success"></span>
@@ -125,15 +128,15 @@
 </div>
 
 <div class="chat-box-right" style="max-height: 89vh">
-<div class="chat-header">
+<div class="chat-header d-none">
     <a href="" class="media">
         <div class="media-left">
-            <img src="./assets/images/users/user-4.jpg" alt="user" class="rounded-circle thumb-md">
+            <img src="./Images/UserAvatar/Default.jpg" alt="user" id="chat-avatar" class="rounded-circle thumb-md">
         </div><!-- media-left -->
         <div class="media-body">
             <div>
-                <h6 class="mb-1 mt-0">Mary Schneider</h6>
-                <p class="mb-0">Last seen: 2 hours ago</p>
+                <h6 class="mb-1 mt-0" id="chat-name">Mary Schneider</h6>
+                @* <p class="mb-0">Last seen: 2 hours ago</p> *@
             </div>
         </div><!-- end media-body -->
     </a><!--end media-->
@@ -154,169 +157,47 @@
         </div>
     </div><!-- end chat-features -->
 </div><!-- end chat-header -->
-<div class="chat-body" style="max-height: 68vh">
+<div class="chat-body d-none" style="max-height: 68vh">
     <div class="chat-detail slimscroll" style="max-height: 65vh; padding-bottom: 85px">
-        <div class="media">
-            <div class="media-img">
-                <img src="./assets/images/users/user-4.jpg" alt="user" class="rounded-circle thumb-md">
-            </div>
-            <div class="media-body">
-                <div class="chat-msg">
-                    <p>Good Morning !</p>
-                </div>
-                <div class="chat-msg">
-                    <p>There are many variations of passages of Lorem Ipsum available.</p>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="media">
-            <div class="media-img">
-                <img src="./assets/images/users/user-4.jpg" alt="user" class="rounded-circle thumb-md">
-            </div>
-            <div class="media-body">
-                <div class="chat-msg">
-                    <p>Good Morning !</p>
-                </div>
-                <div class="chat-msg">
-                    <p>There are many variations of passages of Lorem Ipsum available.</p>
-                </div>
-            </div>
-        </div>
-        <div class="media">
-            <div class="media-img">
-                <img src="./assets/images/users/user-4.jpg" alt="user" class="rounded-circle thumb-md">
-            </div>
-            <div class="media-body">
-                <div class="chat-msg">
-                    <p>Good Morning !</p>
-                </div>
-                <div class="chat-msg">
-                    <p>There are many variations of passages of Lorem Ipsum available.</p>
-                </div>
-            </div>
-        </div>
-        <div class="media">
-            <div class="media-img">
-                <img src="./assets/images/users/user-4.jpg" alt="user" class="rounded-circle thumb-md">
-            </div>
-            <div class="media-body">
-                <div class="chat-msg">
-                    <p>Good Morning !</p>
-                </div>
-                <div class="chat-msg">
-                    <p>There are many variations of passages of Lorem Ipsum available.</p>
-                </div>
-            </div>
-        </div>
-        <div class="media">
-            <div class="media-img">
-                <img src="./assets/images/users/user-4.jpg" alt="user" class="rounded-circle thumb-md">
-            </div>
-            <div class="media-body">
-                <div class="chat-msg">
-                    <p>Good Morning !</p>
-                </div>
-                <div class="chat-msg">
-                    <p>There are many variations of passages of Lorem Ipsum available.</p>
-                </div>
-            </div>
-        </div>
-        <div class="media">
-            <div class="media-img">
-                <img src="./assets/images/users/user-4.jpg" alt="user" class="rounded-circle thumb-md">
-            </div>
-            <div class="media-body">
-                <div class="chat-msg">
-                    <p>Good Morning !</p>
-                </div>
-                <div class="chat-msg">
-                    <p>There are many variations of passages of Lorem Ipsum available.</p>
-                </div>
-            </div>
-        </div>
-        <div class="media">
-            <div class="media-img">
-                <img src="./assets/images/users/user-4.jpg" alt="user" class="rounded-circle thumb-md">
-            </div>
-            <div class="media-body">
-                <div class="chat-msg">
-                    <p>Good Morning !</p>
-                </div>
-                <div class="chat-msg">
-                    <p>There are many variations of passages of Lorem Ipsum available.</p>
-                </div>
-            </div>
-        </div>
-        <div class="media">
-            <div class="media-img">
-                <img src="./assets/images/users/user-4.jpg" alt="user" class="rounded-circle thumb-md">
-            </div>
-            <div class="media-body">
-                <div class="chat-msg">
-                    <p>Good Morning !</p>
-                </div>
-                <div class="chat-msg">
-                    <p>There are many variations of passages of Lorem Ipsum available.</p>
-                </div>
-            </div>
-        </div>
-        <div class="media">
-            <div class="media-img">
-                <img src="./assets/images/users/user-4.jpg" alt="user" class="rounded-circle thumb-md">
-            </div>
-            <div class="media-body">
-                <div class="chat-msg">
-                    <p>Good Morning !</p>
-                </div>
-                <div class="chat-msg">
-                    <p>There are many variations of passages of Lorem Ipsum available.</p>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="media">
-            <div class="media-body reverse">
-                <div class="chat-msg">
-                    <p>Good Morning !</p>
-                </div>
-                <div class="chat-msg">
-                    <p>There are many variations of passages of Lorem Ipsum available.</p>
-                </div>
-            </div><!--end media-body-->
-            <div class="media-img">
-                <img src="./assets/images/users/user-3.jpg" alt="user" class="rounded-circle thumb-md">
-            </div>
-        </div>
-
-        <div class="media">
-            <div class="media-body reverse">
-                <div class="chat-msg">
-                    <p>Good Morning !</p>
-                </div>
-                <div class="chat-msg">
-                    <p>There are many variations of passages of Lorem Ipsum available.</p>
-                </div>
-            </div><!--end media-body-->
-            <div class="media-img">
-                <img src="./assets/images/users/user-3.jpg" alt="user" class="rounded-circle thumb-md">
-            </div>
-        </div>
-        <div class="media">
-            <div class="media-img">
-                <img src="./assets/images/users/user-4.jpg" alt="user" class="rounded-circle thumb-md">
-            </div>
-            <div class="media-body">
-                <div class="chat-msg">
-                    <p>There are many variations of passages of Lorem Ipsum available.</p>
-                </div>
-            </div><!--end media-body-->
-        </div>
+        @* <div class="media"> *@
+        @*     <div class="media-img"> *@
+        @*         <img src="./assets/images/users/user-4.jpg" alt="user" class="rounded-circle thumb-md"> *@
+        @*     </div> *@
+        @*     <div class="media-body"> *@
+        @*         <div class="chat-msg"> *@
+        @*             <p>Good Morning !</p> *@
+        @*         </div> *@
+        @*         <div class="chat-msg"> *@
+        @*             <p>There are many variations of passages of Lorem Ipsum available.</p> *@
+        @*         </div> *@
+        @*     </div> *@
+        @* </div> *@
+        @* <div class="media"> *@
+        @*     <div class="media-body reverse"> *@
+        @*         <div class="chat-msg"> *@
+        @*             <p>Good Morning !</p> *@
+        @*         </div> *@
+        @*         <div class="chat-msg"> *@
+        @*             <p>There are many variations of passages of Lorem Ipsum available.</p> *@
+        @*         </div> *@
+        @*     </div><!--end media-body--> *@
+        @*     <div class="media-img"> *@
+        @*         <img src="./assets/images/users/user-3.jpg" alt="user" class="rounded-circle thumb-md"> *@
+        @*     </div> *@
+        @* </div> *@
+        @* <div class="media"> *@
+        @*     <div class="media-img"> *@
+        @*         <img src="./assets/images/users/user-4.jpg" alt="user" class="rounded-circle thumb-md"> *@
+        @*     </div> *@
+        @*     <div class="media-body"> *@
+        @*         <div class="chat-msg"> *@
+        @*             <p>There are many variations of passages of Lorem Ipsum available.</p> *@
+        @*         </div> *@
+        @*     </div><!--end media-body--> *@
+        @* </div> *@
     </div>
 </div>
-<div class="chat-footer bg-white" style="z-index: 10">
+<div class="chat-footer bg-white d-none" style="z-index: 10">
     <div class="row">
         <div class="col-12 col-md-9">
             <input type="text" class="form-control" id="messageBox" placeholder="نوشتن پیام...">
@@ -360,6 +241,62 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="newChatModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">گفتگوی جدید</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <button type="button" class="btn btn-success form-control" id="openCreateGroupModalBtn" data-toggle="modal" data-target="#createGroupModal">ایجاد گروه جدید</button>
+                        </div>
+                        <div class="col-6">
+                            <button type="button" class="btn btn-primary form-control" id="openJoinGroupsModalBtn" data-toggle="modal" data-target="#joinGroupsModal">عضویت در سایر گروه ها</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="joinGroupsModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">گفتگوی جدید</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    @foreach (var chat in userNotJoinChats)
+                    {
+                        <div class="col-12 groupBox" style="cursor: pointer" data-group-id="@chat.GroupId">
+                            <div class="media new-message" >
+                                <div class="media-left">
+                                    <img src="/Images/UserAvatar/Default.jpg" alt="user" class="rounded-circle thumb-md">
+                                    <span class="round-10 bg-success"></span>
+                                </div>
+                                <div class="media-body">
+                                    <div class="d-inline-block">
+                                        <h6>@chat.GroupTitle</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 }
 
 @section MyStyle
@@ -374,22 +311,86 @@
     <script src="/assets/plugins/sweet-alert2/sweetalert2.min.js"></script>
 
     <script>
+        let currentChatId = 0;
+        let userId = 0;
+        
         const connection = new signalR.HubConnectionBuilder().withUrl("/chat").build();
-        connection.on("Welcome", function (text){
-            console.log("Test Text => ", text)
+        
+        $("#messageBox").on("keydown", function (e){
+            if (e.which === 13){
+                connection.invoke("SendMessage", e.target.value, currentChatId)
+            }
         })
         
-        connection.on("ReceiveMessage", function (message){
-            console.log(message)
+        connection.on("Error", function (error){
+            console.error(error)
+        })
+        
+        connection.on("Load", function (id){
+            userId = id;
+        })
+        
+        connection.on("ReceiveMessage", function (chat){
+            const chatDetailBox = $(".chat-detail");
+            $("#messageBox").val("")
+            const message = generateMessage(chat)
+            console.log("Message => ", message)
+            chatDetailBox.append(message)
+        })
+        
+        connection.on("EnterGroup", function (groupDetail){
+            console.log("Test => ", groupDetail)
+            currentChatId = groupDetail.chatGroupId;
+            console.log("Test2 => ", currentChatId)
+            $(".chat-header").removeClass("d-none")
+            $(".chat-body").removeClass("d-none")
+            $(".chat-footer").removeClass("d-none")
+            $("#chat-name").html(groupDetail.chatGroupTitle)
+            $(".chat-detail").empty();
+            let messages = ""
+            groupDetail.chats.forEach(chat => {
+                messages += generateMessage(chat)
+            })
+            
+            $(".chat-detail").html(messages)
         })
         
         connection.start()
         
-        $("#messageBox").on("keydown", function (e){
-            if (e.which === 13){
-                connection.invoke("SendMessage", e.target.value)
+        function generateMessage(chat){
+            console.log("Chat => ", chat)
+        
+            let message = "";
+            
+            if(userId === chat.userId){
+                message = `
+                    <div class="media">
+                         <div class="media-img">
+                             <img src="/Images/UserAvatar/Default.jpg" alt="user" class="rounded-circle thumb-md">
+                         </div>
+                         <div class="media-body">
+                             <div class="chat-msg">
+                                 <p>${chat.text}</p>
+                             </div>
+                         </div>
+                    </div>
+                `;
+            }else{
+                message = `
+                    <div class="media">
+                         <div class="media-body reverse"> 
+                             <div class="chat-msg"> 
+                                <p>${chat.text}</p> 
+                             </div>
+                        </div>
+                        <div class="media-img"> 
+                           <img src="/Images/UserAvatar/Default.jpg" alt="user" class="rounded-circle thumb-md"> 
+                         </div> 
+                    </div> 
+                `;
             }
-        })
+            return message
+        }
         
         $(document).on("click", "#createGroupBtn", function (){
             $.ajax({
@@ -420,5 +421,51 @@
             })
         })
         
+        $(".group").on("click", function (){
+            const groupId = $(this).data("groupId")
+            connection.invoke("EnterGroup", groupId, currentChatId)
+        })
+    
+    </script>
+
+    <script>
+        $(document).on("click", "#openCreateGroupModalBtn", function (){
+            $("#newChatModal").modal("hide")
+        })
+        
+        $(document).on("click", "#openJoinGroupsModalBtn", function (){
+            $("#newChatModal").modal("hide")
+        })
+        
+        $(document).on("click", ".groupBox", function(){
+            const groupId = $(this).data("groupId")
+            console.log("Test=>" , groupId)
+            $.ajax({
+                url: "/Home/JoinGroup/",
+                type: "POST",
+                data: {
+                    groupId: groupId 
+                },
+                success: function (response){
+                    if (response.isSuccess){
+                        Swal.fire(
+                            'موفق',
+                            'گروه با موفقیت ایجاد شد',
+                            'success'
+                        ).then(function (result){
+                            if (result.value){
+                                window.location.reload()
+                            }
+                        })
+                    }else{
+                        Swal.fire(
+                            'خطا',
+                            response.message,
+                            'error'
+                        )
+                    }
+                }
+            })
+        })
     </script>
 }

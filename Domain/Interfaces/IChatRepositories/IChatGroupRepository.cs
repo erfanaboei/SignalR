@@ -6,5 +6,7 @@ namespace Domain.Interfaces.IChatRepositories
     public interface IChatGroupRepository: IRepository<ChatGroup>
     {
         List<ChatGroup> GetAllByOwnerId(int ownerId);
+        List<ChatGroup> GetAllGroupsWhichUserNotMember(int userId);
+
     }
 }
