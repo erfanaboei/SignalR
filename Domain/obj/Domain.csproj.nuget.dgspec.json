@@ -1,32 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "D:\\New folder\\SignalR\\Domain\\Domain.csproj": {}
+    "E:\\UNI\\Project Karshenasi\\E-Chat\\Domain\\Domain.csproj": {}
   },
   "projects": {
-    "D:\\New folder\\SignalR\\Domain\\Domain.csproj": {
+    "E:\\UNI\\Project Karshenasi\\E-Chat\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\New folder\\SignalR\\Domain\\Domain.csproj",
+        "projectUniqueName": "E:\\UNI\\Project Karshenasi\\E-Chat\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "D:\\New folder\\SignalR\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\Taghavi\\.nuget\\packages\\",
-        "outputPath": "D:\\New folder\\SignalR\\Domain\\obj\\",
+        "projectPath": "E:\\UNI\\Project Karshenasi\\E-Chat\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\ErFaN\\.nuget\\packages\\",
+        "outputPath": "E:\\UNI\\Project Karshenasi\\E-Chat\\Domain\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Taghavi\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\ErFaN\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -59,7 +52,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.405\\RuntimeIdentifierGraph.json"
         }
       }
     }

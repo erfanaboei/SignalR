@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Application.Services.Interfaces.IChatServices;
+using Application.Services.Interfaces.IUserServices;
 using Application.Utilities;
 using Domain.DTOs.ChatDTOs;
 using Domain.Models.Chats;
@@ -14,10 +16,13 @@ namespace E_Chat.Hubs
     {
         private readonly IChatGroupService _chatGroupService;
         private readonly IChatService _chatService;
-        public ChatHub(IChatGroupService chatGroupService, IChatService chatService)
+        private readonly IUserGroupService _userGroupService;
+        
+        public ChatHub(IChatGroupService chatGroupService, IChatService chatService, IUserGroupService userGroupService)
         {
             _chatGroupService = chatGroupService;
             _chatService = chatService;
+            _userGroupService = userGroupService;
         }
 
         public override Task OnConnectedAsync()
@@ -33,16 +38,21 @@ namespace E_Chat.Hubs
 
         public async Task SendMessage(string text, int groupId)
         {
+            var group = _chatGroupService.GetById(groupId);
+            
             var chat = new ChatDto()
             {
                 Text = text,
                 UserId = Context.User.GetUserId(),
                 ChatGroupId = groupId,
                 CreateDate = $"{DateTime.Now.TimeOfDay.Hours}:{DateTime.Now.TimeOfDay.Minutes}",
+                ChatGroupTitle = group.GroupTitle
             };
 
             _chatService.Add(chat);
 
+            await Clients.All.SendAsync("UpdateLastMessage", chat);
+            await Clients.Users(_userGroupService.GetUserIdsJoinedOnGroupByGroupId(groupId).Select(r=> r.ToString())).SendAsync("ShowNotification", chat);
             await Clients.Group(groupId.ToString()).SendAsync("ReceiveMessage", chat);
         }
 

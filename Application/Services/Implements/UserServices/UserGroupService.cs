@@ -43,5 +43,10 @@ namespace Application.Services.Implements.UserServices
             _userGroupRepository.Add(model);
             return new RequestResult(true, RequestResultStatusCode.Success);
         }
+
+        public List<int> GetUserIdsJoinedOnGroupByGroupId(int groupId)
+        {
+            return _userGroupRepository.GetUserIdsJoinedOnGroupByGroupId(groupId);
+        }
     }
 }

@@ -22,5 +22,10 @@ namespace Data.Repositories.UserRepositories
                 .Where(r => r.UserId == userId)
                 .ToList();
         }
+
+        public List<int> GetUserIdsJoinedOnGroupByGroupId(int groupId)
+        {
+            return Table.Where(r => r.ChatGroupId == groupId).Select(r => r.UserId).ToList();
+        }
     }
 }

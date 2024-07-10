@@ -9,5 +9,6 @@ namespace Application.Services.Interfaces.IUserServices
     {
         List<ChatGroupListDto> GetAllByUserId(int userId);
         RequestResult Add(UserGroupDto dto);
+        List<int> GetUserIdsJoinedOnGroupByGroupId(int groupId);
     }
 }

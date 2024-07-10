@@ -12,6 +12,19 @@
 <audio src="/Sound-Effects/new-message-song.mp3" id="newMessageSoundEffect"></audio>
 <audio src="/Sound-Effects/send-message-song.mp3" id="sendMessageSoundEffect"></audio>
 
+<div class="alert icon-custom-alert alert-outline-pink b-round fade show d-none" id="disconnectAlert" role="alert">
+    <i class="mdi mdi-alert-outline alert-icon"></i>
+    <div class="alert-text">
+        <strong>خطا!</strong> اتصال با سرور قطع شده است. درحال برقراری مجدد اتصال... 
+    </div>
+
+    <div class="alert-close">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true"><i class="mdi mdi-close text-danger"></i></span>
+        </button>
+    </div>
+</div>
+
 <div class="row">
 <div class="col-12">
 <div class="chat-box-left" style="max-height: 89vh">
@@ -43,7 +56,7 @@
                     <div class="media-body">
                         <div class="d-inline-block">
                             <h6>@chat.GroupTitle</h6>
-                            <p id="lastChat_@chat.GroupId">@chat.LatChat.ChatBody</p>
+                            <p id="lastChat_@chat.GroupId">@chat.LatChat?.ChatBody</p>
                         </div>
                         <div>
                             <span>20 Feb</span>
@@ -282,6 +295,12 @@
         let currentChatId = 0;
         let userId = 0;
         
+        $(document).ready(function (){
+            if(Notification.permission !== "granted"){
+                Notification.requestPermission();
+            }
+        })
+        
         const connection = new signalR.HubConnectionBuilder().withUrl("/chat").build();
         
         $("#messageBox").on("keydown", function (e){
@@ -290,6 +309,20 @@
                     $("#sendMessageSoundEffect")[0].play();
                 })
             }
+        })
+        
+        connection.on("ShowNotification", function (chat){
+            if(Notification.permission === "granted"){
+                if (chat.chatGroupId !== currentChatId && chat.userId !== userId){
+                    new Notification(chat.chatGroupTitle, {
+                        body: chat.text
+                    });
+                }
+            }
+        })
+        
+        connection.on("UpdateLastMessage", function(chat){
+            $(`#lastChat_${chat.chatGroupId}`).html(chat.text);
         })
         
         connection.on("Error", function (error){
@@ -307,8 +340,6 @@
             const message = generateMessage(chat)
 
             chatDetailBox.append(message)
-            
-            $(`#lastChat_${chat.chatGroupId}`).html(chat.text);
             
             if (chat.userId !== userId){
                 $("#newMessageSoundEffect")[0].play();
@@ -342,7 +373,19 @@
             scrollToLastMessage()
         })
         
-        connection.start()
+        async function StartConnection(){
+            try {
+                await connection.start()
+                $("#disconnectAlert").addClass("d-none")
+            }catch (e){
+                setTimeout(StartConnection, 5000)
+                $("#disconnectAlert").removeClass("d-none")
+            }
+        }
+        
+        StartConnection()
+        
+        connection.onclose(StartConnection)
         
         function generateMessage(chat){
             console.log("Chat => ", chat)
