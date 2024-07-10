@@ -5,6 +5,7 @@ using Application.Services.Interfaces.IChatServices;
 using Application.Utilities;
 using Domain.DTOs.ChatDTOs;
 using Domain.Models.Chats;
+using LabelPrintingEF.Domain.Utilities;
 using Microsoft.AspNetCore.SignalR;
 
 namespace E_Chat.Hubs
@@ -36,7 +37,8 @@ namespace E_Chat.Hubs
             {
                 Text = text,
                 UserId = Context.User.GetUserId(),
-                ChatGroupId = groupId
+                ChatGroupId = groupId,
+                CreateDate = $"{DateTime.Now.TimeOfDay.Hours}:{DateTime.Now.TimeOfDay.Minutes}",
             };
 
             _chatService.Add(chat);

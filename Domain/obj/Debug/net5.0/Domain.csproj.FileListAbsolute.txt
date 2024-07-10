@@ -10,3 +10,15 @@ E:\UNI\Project Karshenasi\E-Chat\Domain\obj\Debug\net5.0\Domain.csproj.CoreCompi
 E:\UNI\Project Karshenasi\E-Chat\Domain\obj\Debug\net5.0\Domain.dll
 E:\UNI\Project Karshenasi\E-Chat\Domain\obj\Debug\net5.0\ref\Domain.dll
 E:\UNI\Project Karshenasi\E-Chat\Domain\obj\Debug\net5.0\Domain.pdb
+D:\New folder\SignalR\Domain\bin\Debug\net5.0\Domain.deps.json
+D:\New folder\SignalR\Domain\bin\Debug\net5.0\Domain.dll
+D:\New folder\SignalR\Domain\bin\Debug\net5.0\ref\Domain.dll
+D:\New folder\SignalR\Domain\bin\Debug\net5.0\Domain.pdb
+D:\New folder\SignalR\Domain\obj\Debug\net5.0\Domain.csproj.AssemblyReference.cache
+D:\New folder\SignalR\Domain\obj\Debug\net5.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\New folder\SignalR\Domain\obj\Debug\net5.0\Domain.AssemblyInfoInputs.cache
+D:\New folder\SignalR\Domain\obj\Debug\net5.0\Domain.AssemblyInfo.cs
+D:\New folder\SignalR\Domain\obj\Debug\net5.0\Domain.csproj.CoreCompileInputs.cache
+D:\New folder\SignalR\Domain\obj\Debug\net5.0\Domain.dll
+D:\New folder\SignalR\Domain\obj\Debug\net5.0\ref\Domain.dll
+D:\New folder\SignalR\Domain\obj\Debug\net5.0\Domain.pdb

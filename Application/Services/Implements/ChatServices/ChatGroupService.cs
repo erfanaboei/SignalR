@@ -59,7 +59,7 @@ namespace Application.Services.Implements.ChatServices
                 Chats = chatGroup.Chats.Select(r=> new ChatDto()
                 {
                     UserId = r.UserId,
-                    CreateDate = r.CreateDate.ToString(),
+                    CreateDate = $"{r.CreateDate.TimeOfDay.Hours}:{r.CreateDate.TimeOfDay.Minutes}",
                     Text = r.ChatBody
                 }).ToList()
             };  

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "cy7TDS5rSYgtJHstOG3z3IBF8crd+ofyqZJIWPoKK8vdkzcs2OqV9STPqcH2GEmqfAdyS+wxO99SITqxLJzu6g==",
+  "dgSpecHash": "4bK/SpW40DUXZmYxV/9lc+1N9+DzJQ4dT+kYVu/lipctAGotA+3w3ZAnJ2AMtCr85N4UVIi9OzeWBkulw1QTcA==",
   "success": true,
-  "projectFilePath": "E:\\UNI\\Project Karshenasi\\E-Chat\\Domain\\Domain.csproj",
+  "projectFilePath": "D:\\New folder\\SignalR\\Domain\\Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

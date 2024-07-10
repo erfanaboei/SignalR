@@ -9,6 +9,9 @@
     var userNotJoinChats = ChatGroupService.GetAllGroupsWhichUserNotMember(User.GetUserId());
 }
 
+<audio src="/Sound-Effects/new-message-song.mp3" id="newMessageSoundEffect"></audio>
+<audio src="/Sound-Effects/send-message-song.mp3" id="sendMessageSoundEffect"></audio>
+
 <div class="row">
 <div class="col-12">
 <div class="chat-box-left" style="max-height: 89vh">
@@ -40,7 +43,7 @@
                     <div class="media-body">
                         <div class="d-inline-block">
                             <h6>@chat.GroupTitle</h6>
-                            <p>Last Message</p>
+                            <p id="lastChat_@chat.GroupId">@chat.LatChat.ChatBody</p>
                         </div>
                         <div>
                             <span>20 Feb</span>
@@ -52,7 +55,7 @@
         </div>
 
         <div class="tab-pane fade" id="group_chat">
-            <a href="" class="media new-message">
+            <a href="#" class="media new-message">
                 <div class="media-left">
                     <div class="avatar-box thumb-md align-self-center mr-2">
                         <span class="avatar-title bg-primary rounded-circle">
@@ -71,7 +74,7 @@
                     </div>
                 </div><!-- end media-body -->
             </a>
-            <a href="" class="media">
+            <a href="#" class="media">
                 <div class="media-left">
                     <div class="avatar-box thumb-md align-self-center mr-2">
                         <span class="avatar-title bg-success rounded-circle">
@@ -92,7 +95,7 @@
         </div>
 
         <div class="tab-pane fade" id="personal_chat">
-            <a href="" class="media new-message">
+            <a href="#" class="media new-message">
                 <div class="media-left">
                     <img src="./assets/images/users/user-1.jpg" alt="user" class="rounded-circle thumb-md">
                     <span class="round-10 bg-success"></span>
@@ -108,7 +111,7 @@
                     </div>
                 </div><!-- end media-body -->
             </a>
-            <a href="" class="media">
+            <a href="#" class="media">
                 <div class="media-left">
                     <img src="./assets/images/users/user-3.jpg" alt="user" class="rounded-circle thumb-md">
                     <span class="round-10 bg-danger"></span>
@@ -129,29 +132,29 @@
 
 <div class="chat-box-right" style="max-height: 89vh">
 <div class="chat-header d-none">
-    <a href="" class="media">
+    <a href="#" class="media">
         <div class="media-left">
             <img src="./Images/UserAvatar/Default.jpg" alt="user" id="chat-avatar" class="rounded-circle thumb-md">
         </div><!-- media-left -->
         <div class="media-body">
             <div>
-                <h6 class="mb-1 mt-0" id="chat-name">Mary Schneider</h6>
+                <h6 class="mb-1 mt-0" id="chat-name"></h6>
                 @* <p class="mb-0">Last seen: 2 hours ago</p> *@
             </div>
         </div><!-- end media-body -->
     </a><!--end media-->
     <div class="chat-features">
         <div class="d-none d-sm-inline-block">
-            <a href="">
+            <a href="#">
                 <i class="fas fa-phone"></i>
             </a>
-            <a href="">
+            <a href="#">
                 <i class="fas fa-video"></i>
             </a>
-            <a href="">
+            <a href="#">
                 <i class="fas fa-trash-alt"></i>
             </a>
-            <a href="">
+            <a href="#">
                 <i class="fas fa-ellipsis-v"></i>
             </a>
         </div>
@@ -159,42 +162,7 @@
 </div><!-- end chat-header -->
 <div class="chat-body d-none" style="max-height: 68vh">
     <div class="chat-detail slimscroll" style="max-height: 65vh; padding-bottom: 85px">
-        @* <div class="media"> *@
-        @*     <div class="media-img"> *@
-        @*         <img src="./assets/images/users/user-4.jpg" alt="user" class="rounded-circle thumb-md"> *@
-        @*     </div> *@
-        @*     <div class="media-body"> *@
-        @*         <div class="chat-msg"> *@
-        @*             <p>Good Morning !</p> *@
-        @*         </div> *@
-        @*         <div class="chat-msg"> *@
-        @*             <p>There are many variations of passages of Lorem Ipsum available.</p> *@
-        @*         </div> *@
-        @*     </div> *@
-        @* </div> *@
-        @* <div class="media"> *@
-        @*     <div class="media-body reverse"> *@
-        @*         <div class="chat-msg"> *@
-        @*             <p>Good Morning !</p> *@
-        @*         </div> *@
-        @*         <div class="chat-msg"> *@
-        @*             <p>There are many variations of passages of Lorem Ipsum available.</p> *@
-        @*         </div> *@
-        @*     </div><!--end media-body--> *@
-        @*     <div class="media-img"> *@
-        @*         <img src="./assets/images/users/user-3.jpg" alt="user" class="rounded-circle thumb-md"> *@
-        @*     </div> *@
-        @* </div> *@
-        @* <div class="media"> *@
-        @*     <div class="media-img"> *@
-        @*         <img src="./assets/images/users/user-4.jpg" alt="user" class="rounded-circle thumb-md"> *@
-        @*     </div> *@
-        @*     <div class="media-body"> *@
-        @*         <div class="chat-msg"> *@
-        @*             <p>There are many variations of passages of Lorem Ipsum available.</p> *@
-        @*         </div> *@
-        @*     </div><!--end media-body--> *@
-        @* </div> *@
+        
     </div>
 </div>
 <div class="chat-footer bg-white d-none" style="z-index: 10">
@@ -318,7 +286,9 @@
         
         $("#messageBox").on("keydown", function (e){
             if (e.which === 13){
-                connection.invoke("SendMessage", e.target.value, currentChatId)
+                connection.invoke("SendMessage", e.target.value, currentChatId).then(function (){
+                    $("#sendMessageSoundEffect")[0].play();
+                })
             }
         })
         
@@ -333,10 +303,25 @@
         connection.on("ReceiveMessage", function (chat){
             const chatDetailBox = $(".chat-detail");
             $("#messageBox").val("")
+            
             const message = generateMessage(chat)
-            console.log("Message => ", message)
+
             chatDetailBox.append(message)
+            
+            $(`#lastChat_${chat.chatGroupId}`).html(chat.text);
+            
+            if (chat.userId !== userId){
+                $("#newMessageSoundEffect")[0].play();
+            }else
+            {
+                scrollToLastMessage()
+            }
         })
+        
+        function scrollToLastMessage(){
+            const chatBox = $(".chat-detail");
+            chatBox.scrollTop(chatBox[0].scrollHeight);
+        }
         
         connection.on("EnterGroup", function (groupDetail){
             console.log("Test => ", groupDetail)
@@ -347,12 +332,14 @@
             $(".chat-footer").removeClass("d-none")
             $("#chat-name").html(groupDetail.chatGroupTitle)
             $(".chat-detail").empty();
+            
             let messages = ""
             groupDetail.chats.forEach(chat => {
                 messages += generateMessage(chat)
             })
             
             $(".chat-detail").html(messages)
+            scrollToLastMessage()
         })
         
         connection.start()
@@ -370,7 +357,10 @@
                          </div>
                          <div class="media-body">
                              <div class="chat-msg">
-                                 <p>${chat.text}</p>
+                                 <p>
+                                     <span>${chat.text}</span> </br>
+                                     <span>${chat.createDate}</span>
+                                 </p> 
                              </div>
                          </div>
                     </div>
@@ -380,7 +370,10 @@
                     <div class="media">
                          <div class="media-body reverse"> 
                              <div class="chat-msg"> 
-                                <p>${chat.text}</p> 
+                                <p>
+                                    <span>${chat.text}</span> </br>
+                                    <span>${chat.createDate}</span>
+                                </p> 
                              </div>
                         </div>
                         <div class="media-img"> 
