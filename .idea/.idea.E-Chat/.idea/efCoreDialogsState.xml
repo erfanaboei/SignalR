@@ -6,6 +6,7 @@
         <entry key="Common:5ce6b393-06c3-4033-ab8a-1c6808a683ae:dbContext" value="Data.Context.ProjectContext" />
         <entry key="Common:buildConfiguration" value="Debug" />
         <entry key="Common:noBuild" value="false" />
+        <entry key="Common:outputFolder" value="Migrations" />
         <entry key="Common:useDefaultConnection" value="true" />
       </map>
     </option>
